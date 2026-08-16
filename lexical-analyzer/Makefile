@@ -1,5 +1,3 @@
-# Makefile - builds the lexical analyzer
-
 CC      = gcc
 CFLAGS  = -Wall -Wno-unused-function
 FLEX    = flex
@@ -21,7 +19,5 @@ $(TARGET): $(GEN_C)
 
 clean:
 	rm -f $(TARGET) $(GEN_C)
-
-# Convenience: build then run over the whole test directory
 run: all
 	./run.sh
