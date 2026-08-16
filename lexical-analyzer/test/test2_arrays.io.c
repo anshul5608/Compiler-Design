@@ -1,4 +1,3 @@
-// Test 1: arithmetic, relational, logical, and assignment operators
 int main() {
     int a = 10;
     int b = 3;
