@@ -3,7 +3,7 @@
 int main() {
     int numbers[10];
     char name[50];
-    int matrix[3][3]; // Multi-dimensional array
+    int matrix[3][3];
 
     printf("Enter a number: ");
     scanf("%d", &numbers[0]);
