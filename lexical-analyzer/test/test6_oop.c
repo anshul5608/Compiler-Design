@@ -7,7 +7,6 @@ public:
     Shape() {}
 };
 
-// Inheritance
 class Rectangle : public Shape {
 public:
     int getArea() {
@@ -16,6 +15,6 @@ public:
 };
 
 int main() {
-    Rectangle rect; // Object
+    Rectangle rect;
     return 0;
 }
