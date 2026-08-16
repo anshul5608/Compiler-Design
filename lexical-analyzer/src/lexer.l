@@ -1,18 +1,18 @@
 /*
- * lexer.l  -  Lexical Analyzer for our C-like source language
- *
- * Build: flex + gcc (see ../Makefile)
- * Usage: ./lexer <source-file>
- *
- * Behavior:
- *   - Scans the whole input file.
- *   - For every valid token found, prints a row to a Lexeme/Token
- *     table (in the order the tokens appear in the source).
- *   - For every invalid character / malformed lexeme, records a
- *     lexical error (with line number) instead of aborting, so
- *     that scanning continues and ALL errors in the file are
- *     eventually reported.
- *   - Prints an error summary at the end if any errors were found.
+    * lexer.l  -  Lexical Analyzer for our C-like source language
+    *
+    * Build: flex + gcc (see ../Makefile)
+    * Usage: ./lexer <source-file>
+    *
+    * Behavior:
+    *   - Scans the whole input file.
+    *   - For every valid token found, prints a row to a Lexeme/Token
+    *     table (in the order the tokens appear in the source).
+    *   - For every invalid character / malformed lexeme, records a
+    *     lexical error (with line number) instead of aborting, so
+    *     that scanning continues and ALL errors in the file are
+    *     eventually reported.
+    *   - Prints an error summary at the end if any errors were found.
 */
 
 %{
@@ -21,7 +21,7 @@
 #include <string.h>
 #include <stdarg.h>
 
-/* simple growable list of error messages */
+
 static char **errorList = NULL;
 static int errorCount = 0;
 static int errorCap = 0;
@@ -40,7 +40,8 @@ static void recordError(const char *fmt, ...) {
     errorList[errorCount++] = strdup(buf);
 }
 
-/* print one row of the Lexeme / Token table */
+
+/* print one row of the Lexeme */
 static void emit(const char *lexeme, const char *token) {
     printf("| %-25s | %-35s |\n", lexeme, token);
 }
@@ -64,7 +65,9 @@ WS      [ \t\r]+
 "/*"([^*]|\*+[^*/])*\*+"/"  { /* multi-line comment: skip */ }
 "/*"([^*]|\*+[^*/])*        { recordError("Line %d: unterminated block comment", yylineno); }
 
- /* ---- keywords ---- */
+
+
+ /*  keywords  */
 "int"       { TOK("keyword"); }
 "char"      { TOK("keyword"); }
 "void"      { TOK("keyword"); }
@@ -89,7 +92,7 @@ WS      [ \t\r]+
 "scanf"     { TOK("keyword"); }
 "static"    { TOK("keyword"); }
 
- /* ---- OOP & Advanced memory keywords ---- */
+ /*  OOP & Advanced memory keywords  */
 "class"     { TOK("keyword"); }
 "public"    { TOK("keyword"); }
 "private"   { TOK("keyword"); }
@@ -99,19 +102,19 @@ WS      [ \t\r]+
 "auto"      { TOK("keyword"); }
 "FILE"      { TOK("keyword"); }
 
- /* ---- identifiers & numeric literal ---- */
+ /*  identifiers & numeric literal  */
 {ID}        { TOK("identifier"); }
 {INT}       { TOK("integer literal"); }
 
- /* ---- character literal: 'a' , '\n' , etc. ---- */
+ /*  character literal: 'a' , '\n' , etc.  */
 \'(\\.|[^\\'\n])\'   { TOK("character literal"); }
 \'(\\.|[^\\'\n])*    { recordError("Line %d: unterminated character literal '%s'", yylineno, yytext); }
 
- /* ---- string literal: "..." (must close on same line) ---- */
+ /*  string literal: "..." (must close on same line)  */
 \"(\\.|[^\\"\n])*\"  { TOK("string literal"); }
 \"(\\.|[^\\"\n])*    { recordError("Line %d: unterminated string literal starting '%s'", yylineno, yytext); }
 
- /* ---- punctuation / separators ---- */
+ /*  punctuation / separators  */
 "("   { TOK("left parenthesis"); }
 ")"   { TOK("right parenthesis"); }
 "{"   { TOK("left brace"); }
@@ -124,7 +127,7 @@ WS      [ \t\r]+
 ":"   { TOK("colon"); }
 "..." { TOK("ellipsis"); }
 
- /* ---- operators ---- */
+ /*  operators  */
 "=="  { TOK("relational operator"); }
 "!="  { TOK("relational operator"); }
 "<="  { TOK("relational operator"); }
@@ -146,14 +149,14 @@ WS      [ \t\r]+
 
 "&"   { TOK("address-of / reference operator"); }
 
- /* ---- whitespace / newline ---- */
+ /*  whitespace / newline  */
 \n    { /* yylineno auto-increments */ }
 {WS}  { /* skip */ }
 
- /* ---- preprocessor directives ---- */
+ /*  preprocessor directives  */
 "#".* { TOK("preprocessor directive"); }
 
- /* ---- anything else is a lexical error ---- */
+ /*  anything else is a lexical error  */
 .     { recordError("Line %d: unexpected character '%s'", yylineno, yytext); }
 
 %%
@@ -168,7 +171,8 @@ int main(int argc, char **argv) {
             return 1;
         }
         yyin = f;
-    } else {
+    } 
+    else {
         yyin = stdin; /* read from stdin if no file given */
     }
 
