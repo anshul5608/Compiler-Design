@@ -1,4 +1,4 @@
-/* ============================================================
+/*
  * lexer.l  -  Lexical Analyzer for our C-like source language
  *
  * Build: flex + gcc (see ../Makefile)
@@ -13,7 +13,7 @@
  *     that scanning continues and ALL errors in the file are
  *     eventually reported.
  *   - Prints an error summary at the end if any errors were found.
- * ============================================================ */
+*/
 
 %{
 #include <stdio.h>
