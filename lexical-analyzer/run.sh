@@ -1,10 +1,5 @@
 #!/bin/bash
-# run.sh - runs the lexer executable over every file in the test/ directory
-#
-# Usage:
-#   ./run.sh                     # uses ./lexer and ./test
-#   ./run.sh ./lexer test        # explicit executable + test dir
-#   ./run.sh ./lexer test file.c # run on a single file
+
 
 EXE="${1:-./lexer}"
 TESTDIR="${2:-test}"
